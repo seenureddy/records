@@ -22,18 +22,13 @@ you can add a taint using the following command:
 kubectl taint nodes host1 special=true:NoSchedule
 node “host1” tainted
 ```
-The taint has the format <taintKey>=<taintValue>:<taintEffect> . Thus, the taint we just created has the key 
-“special“, the value “true“, and the taint effect NoSchedule. A taint’s key and value can be any arbitrary string 
+The taint has the format ``` <taintKey>=<taintValue>:<taintEffect>``` . Thus, the taint we just created has the key 
+“special“, the value "true", and the taint effect NoSchedule. A taint’s key and value can be any arbitrary string 
 and the taint effect should be one of the supported taint effects such as NoSchedule , NoExecute , and PreferNoSchedule .
 
-Taint effects define how nodes with a taint react to Pods that don’t tolerate it. For example, the NoSchedule taint
- effect means that unless a Pod has matching toleration, it won’t be able to schedule onto the host1 . Other supported
- effects include PreferNoSchedule and NoExecute . The former is the “soft” version of NoSchedule . If the PreferNoSchedule 
- is applied, the system will try not to place a Pod that does not tolerate the taint on the node, but it is not required. 
- Finally, if the NoExecute effect is applied, the node controller will immediately evict all Pods without the matching 
- toleration from the node.
+Taint effects define how nodes with a taint react to Pods that don’t tolerate it. For example, the NoSchedule taint effect means that unless a Pod has matching toleration, it won’t be able to schedule onto the host1 . Other supported effects include PreferNoSchedule and NoExecute . The former is the “soft” version of NoSchedule . If the PreferNoSchedule is applied, the system will try not to place a Pod that does not tolerate the taint on the node, but it is not required. Finally, if the NoExecute effect is applied, the node controller will immediately evict all Pods without the matching toleration from the node.
 
-You can verify that the taint was applied by running kubectl describe nodes <your-node-name> and checking the Taints 
+You can verify that the taint was applied by running kubectl describe nodes `<your-node-name>` and checking the Taints 
 section of the response:
 
 ```EX:
@@ -71,11 +66,11 @@ spec:
     value: "true"
     effect: "NoSchedule"
 ```
-As you see, the Pod’s toleration has the key “special“, the value “true“, and the effect “NoSchedule“, which exactly matches 
+As you see, the Pod’s toleration has the key "special", the value "true", and the effect "NoSchedule", which exactly matches 
 the taint we applied earlier. Therefore, this Pod can be scheduled onto the host1 . However, this does not mean that the Pod 
 will be scheduled onto that exact node because we did not use node affinity or nodeSelector .
 
-The second Pod below can be also scheduled onto a tainted node although it uses the operator “Exists” and does not have the key’s value defined.
+The second Pod below can be also scheduled onto a tainted node although it uses the operator "Exists" and does not have the key’s value defined.
 ```
 EX:
 apiVersion: v1
