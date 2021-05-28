@@ -53,24 +53,24 @@ data replication, no single point of failure, continuous monitoring etc.
 
 Following are some of the strategies for implementing resiliency:
 
- **Retry transient failures** — Transient failures can be caused by momentary loss of network connectivity, a dropped database connection, or a timeout
-   when a service is busy. Often, a transient failure can be resolved simply by retrying the request.
+   **Retry transient failures** — Transient failures can be caused by momentary loss of network connectivity, a dropped database connection, or a timeout
+     when a service is busy. Often, a transient failure can be resolved simply by retrying the request.
 
-**Load balance across instances** — Implement cluster everywhere. Stateless applications should be able to scale by adding more nodes to the cluster
+   **Load balance across instances** — Implement cluster everywhere. Stateless applications should be able to scale by adding more nodes to the cluster
 
-**Degrade gracefully** — If a service fails and there is no failover path, the application may be able to degrade gracefully while still providing 
-    an acceptable user experience
+   **Degrade gracefully** — If a service fails and there is no failover path, the application may be able to degrade gracefully while still providing 
+     an acceptable user experience
 
-**Throttle high-volume tenants/users** — Sometimes a small number of users create excessive load. That can have an impact on other users, reducing 
-   the overall availability of your application
+   **Throttle high-volume tenants/users** — Sometimes a small number of users create excessive load. That can have an impact on other users, reducing 
+     the overall availability of your application
 
-**Use a circuit breaker** — The circuit breaker pattern can prevent an application from repeatedly trying an operation that is likely to fail. 
-   The circuit breaker wraps calls to a service and tracks the number of recent failures. If the failure count exceeds a threshold, the circuit
-   breaker starts returning an error code without calling the service
+   **Use a circuit breaker** — The circuit breaker pattern can prevent an application from repeatedly trying an operation that is likely to fail. 
+     The circuit breaker wraps calls to a service and tracks the number of recent failures. If the failure count exceeds a threshold, the circuit
+     breaker starts returning an error code without calling the service
  
-**Apply compensating transactions**. A compensating transaction is a transaction that undoes the effects of another completed transaction. 
-In a distributed system, it can be very difficult to achieve strong transactional consistency. Compensating transactions are a way to achieve 
-consistency by using a series of smaller, individual transactions that can be undone at each step.
+   **Apply compensating transactions**. A compensating transaction is a transaction that undoes the effects of another completed transaction. 
+     In a distributed system, it can be very difficult to achieve strong transactional consistency. Compensating transactions are a way to achieve 
+     consistency by using a series of smaller, individual transactions that can be undone at each step.
   
 **Testing for resiliency** — Normally resiliency testing cannot be done the same way that you test application functionality (by running unit tests, 
 integration tests and so on). Instead, you must test how the end-to-end workload performs under failure conditions which only occur intermittently. 
