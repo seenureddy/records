@@ -130,8 +130,11 @@ As you can see, configuration for a TCP check is quite similar to an HTTP check.
 Probes have a number of fields that you can use to more precisely control the behavior of liveness and readiness checks:
 
 **initialDelaySeconds**: Number of seconds after the container has started before liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+
 **periodSeconds**: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+
 **timeoutSeconds**: Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1.
+
 **successThreshold**: Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and 
                       startup Probes. Minimum value is 1.
                       
