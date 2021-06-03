@@ -18,4 +18,34 @@ The **kubelet** uses **startup probes to know when a container application has s
 it succeeds, making sure those probes don't interfere with the application startup.**
 **NOTE:** This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
 
+## Example Liveness
+
+* To create the pod: `kubectl apply -f exec-liveness.yaml``
+* Within 30 seconds, view the Pod events: `kubectl describe pod liveness-exec`
+* Wait another 30 seconds, and verify that the container has been restarted: `kubectl get pod liveness-exec`
+
+  ### exec-liveness.yaml
+  ```
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    labels:
+      test: liveness
+    name: liveness-exec
+  spec:
+    containers:
+    - name: liveness
+      image: k8s.gcr.io/busybox
+      args:
+      - /bin/sh
+      - -c
+      - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+      livenessProbe:
+        exec:
+          command:
+          - cat
+          - /tmp/healthy
+        initialDelaySeconds: 5
+        periodSeconds: 5
+  ```
 
