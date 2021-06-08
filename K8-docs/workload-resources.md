@@ -2,6 +2,12 @@
 
 Deployments, ReplicaSet, StatefulSets, DaemonSet, Jobs, Garbage Collection, TTL Controller for Finished Resources, CronJob, ReplicationController
 
+**Deployment and ReplicaSet** (replacing the legacy resource ReplicationController). Deployment is a good fit for managing a stateless application 
+workload on your cluster, where any Pod in the Deployment is interchangeable and can be replaced if needed.
+
+**The time-to-live** after finished controller removes Jobs once a defined time has passed since they completed.
+**Job and CronJob** define tasks that run to completion and then stop. Jobs represent one-off tasks, whereas CronJobs recur according to a schedule.
+
 ## DaemonSet
 
 A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed 
@@ -46,13 +52,22 @@ any that have failed.
 A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often used to guarantee the availability 
 of a specified number of identical Pods.
 
+## ReplicationController
+
+A ReplicationController ensures that a specified number of pod replicas are running at any one time. In other words, a ReplicationController makes sure 
+that a pod or a homogeneous set of pods is always up and available.
+
 
 ## Garbage Collection
 
 The role of the Kubernetes garbage collector is to delete certain objects that once had an owner, but no longer have an owner.
 
  ### Owners and dependents 
- Some Kubernetes objects are owners of other objects. For example, a ReplicaSet is the owner of a set of Pods. The owned objects are called dependents 
- of the owner object. Every dependent object has a metadata.ownerReferences field that points to the owning object.
+ Some Kubernetes objects are owners of other objects. For example, a `ReplicaSet is the owner of a set of Pods`. The owned objects are called dependents 
+ of the owner object. Every dependent object has a `metadata.ownerReferences` field that points to the owning object.
+ 
+ Sometimes, Kubernetes sets the value of ownerReference automatically. For example, when you create a ReplicaSet, Kubernetes automatically sets the 
+ **ownerReference field** of each Pod in the ReplicaSet. In **1.8, Kubernetes automatically sets the value of ownerReference for objects created or 
+ adopted by ReplicationController, ReplicaSet, StatefulSet, DaemonSet, Deployment, Job and CronJob.**
 
 
