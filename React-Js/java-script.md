@@ -1,3 +1,55 @@
+# What is the use of promises in javascript? 
+
+ **Promises are used to handle asynchronous operations in javascript.**
+  Before promises, callbacks were used to handle asynchronous operations. But due to limited functionality of callback, using multiple callbacks to handle
+  asynchronous code can lead to unmanageable code. 
+ 
+  Promise object has four states - 
+  
+  *  Pending - Initial state of promise. This state represents that the promise has neither been fulfilled nor been rejected, it is in the pending state. 
+  *  Fulfilled - This state represents that the promise has been fulfilled, meaning the async operation is completed. 
+  *  Rejected - This state represents that the promise has been rejected for some reason, meaning the async operation has failed. 
+  *  Settled - This state represents that the promise has been either rejected or fulfilled. 
+  
+ A promise is created using the Promise constructor which takes in a callback function with two parameters, **resolve and reject respectively.**
+ 
+  reject is a function that will be called, when the async operation fails or if some error occurs. 
+  resolve is a function that will be called, when the async operation has been successfully completed. 
+  
+   Example of a promise: 
+   
+   ```
+    function sumOfThreeElements(...elements){
+      return new Promise((resolve,reject)=>{
+        if(elements.length > 3 ){
+          reject("Only three elements or less are allowed");
+        }
+        else{
+          let sum = 0;
+          let i = 0;
+          while(i < elements.length){
+            sum += elements[i];
+            i++;
+          }
+          resolve("Sum has been calculated: "+sum);
+        }
+      })
+    }
+  
+   ```
+   In the code above, we are calculating the sum of three elements, if the length of elements array is more than 3, promise is rejected, else the promise is 
+   resolved and the sum is returned. 
+   
+    We can consume any promise by attaching then() and catch() methods to the consumer. 
+    
+    then() method is used to access the result when the promise is fulfilled. 
+    catch() method is used to access the result/error when the promise is rejected. 
+
+# What is Object Destructuring?
+
+ Object destructuring is a new way to extract elements from an object or an array. 
+ 
+
 # Explain passed by value and passed by reference.?
 
  In JavaScript, **primitive data types** are passed by value and **non-primitive data types** are passed by reference. 
@@ -341,3 +393,65 @@ memoizedFunc(20); // Cached return
 
 In the code above, if we run memoizedFunc function with the same parameter, instead of computing the result again, it returns the cached result. 
 
+#  What are arrow functions? 
+
+ Arrow functions were introduced in the ES6 version of javascript.  They provide us with a new and shorter syntax for declaring functions. Arrow functions
+ can only be used as a function expression. 
+ 
+ ```
+   // Traditional Function Expression
+ var add = function(a,b){
+   return a + b;
+ }
+
+ // Arrow Function Expression
+ var arrowAdd = (a,b) => a + b;
+ ```
+ 
+ 
+ # Differences between declaring variables using var, let and const. 
+ 
+  Variables declared in the global scope with **var and let keywords** can be accessed from anywhere in the code. 
+  
+  Variables declared with let keyword inside the block scope cannot be accessed from **outside of the block.**
+  
+  ## Const keyword 
+   Variables with the const keyword behave exactly like a variable declared with the let keyword with only one difference, any variable declared with the const
+   keyword cannot be reassigned. 
+   
+ 
+ #  What is the rest parameter and spread operator? 
+ 
+  Both rest parameter and spread operator were introduced in the ES6 version of javascript. 
+  
+  Rest parameter is used to take a variable number of arguments and turns into an array while the spread operator takes an array or an object and spreads it 
+  Rest parameter is used in function declaration whereas the spread operator is used in function calls. 
+  
+  ```
+   rest parameter:
+   
+   function extractingArgs(...args){
+     return args[1];
+   }
+   
+   addAllArgs(6, 5, 7, 99); // Returns 117
+   
+   spread operator:
+  
+   function addFourNumbers(num1,num2,num3,num4){
+     return num1 + num2 + num3 + num4;
+   }
+
+   let fourNumbers = [5, 6, 7, 8];
+
+
+   addFourNumbers(...fourNumbers);
+   // Spreads [5,6,7,8] as 5,6,7,8
+  
+  ```
+
+
+   
+  
+   
+   
